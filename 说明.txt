@@ -1,0 +1,69 @@
+npm install rollup --global
+
+rollup src/main.js --format cjs --output bundle.js
+
+加入配置文件rollup.config.js后
+rollup -c
+导出另一份
+rollup -c -o bundle-2.js
+
+我们也可以设置2个配置版本
+rollup --config rollup.config.dev.js
+rollup --config rollup.config.prod.js
+
+在些基础上加入package.json
+安装本地rollup
+npm install --save-dev rollup
+
+npm run build
+
+npm install --save-dev rollup-watch
+
+npm run dev
+
+Using plugins
+读取json文件
+npm install --save-dev rollup-plugin-json
+
+Using Rollup with npm packages
+npm install --save the-answer
+安装完后运行出现警告加载不了
+npm install --save-dev rollup-plugin-node-resolve
+
+
+Using Rollup with Babel
+npm i -D rollup-plugin-babel
+npm i -D babel-preset-latest babel-plugin-external-helpers
+
+Sourcemaps:
+export default {
+  entry: 'src/main.js',
+  format: 'umd',
+  dest: 'bundle.js',
+  sourceMap: true
+};
+
+
+Using RollupJS with Gulp:
+var gulp = require('gulp'),
+  rollup = require('rollup'),
+  rollupTypescript = require('rollup-plugin-typescript')
+;
+
+gulp.task('build', function () {
+  return rollup.rollup({
+    entry: "./src/main.ts",
+    plugins: [
+      rollupTypescript()
+    ],
+  })
+    .then(function (bundle) {
+      bundle.write({
+        format: "umd",
+        moduleName: "library",
+        dest: "./dist/library.js",
+        sourceMap: true
+      });
+    })
+});
+
